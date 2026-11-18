@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media NU Bandar | Suara Aswaja An-Nahdliyah</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display untuk kesan elegan -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        nu: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#065f46', // Hijau Zamrud Utama
+                            900: '#022c22', // Hijau Gelap Elegan
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#d97706', // Aksen Emas Klasik
+                            600: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-nu-800 selection:text-white">
+
+    <!-- Top Bar: Tanggal Hijriyah/Masehi & Sosial Media -->
+    <div class="bg-nu-900 text-slate-200 text-xs py-2 border-b border-nu-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-4">
+                <span id="current-date" class="flex items-center text-emerald-300 font-medium">
+                    <i class="far fa-calendar-alt mr-2"></i> Memuat tanggal...
+                </span>
+                <span class="hidden md:inline text-nu-700">|</span>
+                <span class="hidden md:inline text-slate-300">MWC NU Bandar - Merawat Jagat, Membangun Peradaban</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#jadwal-sholat" class="hover:text-gold-400 transition flex items-center gap-1">
+                    <i class="fas fa-mosque text-gold-400"></i> Jadwal Sholat Bandar
+                </a>
+                <span class="text-nu-700">|</span>
+                <div class="flex space-x-3">
+                    <a href="#" aria-label="Facebook" class="hover:text-gold-400 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram" class="hover:text-gold-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube" class="hover:text-gold-400 transition"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok" class="hover:text-gold-400 transition"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <span class="text-nu-700">|</span>
+                <button onclick="openAdminGate()" id="top-admin-btn" class="text-gold-400 hover:text-white font-semibold transition flex items-center gap-1.5">
+                    <i class="fas fa-user-shield"></i> <span id="top-admin-label">Login Admin</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigasi Utama -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Brand -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <!-- Custom SVG Emblem NU Elegan -->
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-nu-800 to-nu-900 flex items-center justify-center shadow-md group-hover:shadow-lg transition duration-300 border border-gold-500/30">
+                        <svg class="w-8 h-8 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="9" stroke-dasharray="2 2"/>
+                            <circle cx="12" cy="12" r="5" />
+                            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-serif font-bold text-xl sm:text-2xl text-nu-900 tracking-tight">MEDIA NU</span>
+                            <span class="bg-nu-800 text-gold-400 text-xs font-bold px-2 py-0.5 rounded-md tracking-wider uppercase">Bandar</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 font-medium tracking-wide">PORTAL INFORMASI & DAKWAH ASWAJA</p>
+                    </div>
+                </a>
+
+                <!-- Menu Navigasi Desktop -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <button onclick="filterNews('all')" class="nav-btn active px-3.5 py-2 rounded-lg text-sm font-semibold text-nu-800 bg-nu-50 transition">Beranda</button>
+                    <button onclick="filterNews('Warta NU')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-nu-800 hover:bg-slate-100 transition">Warta NU</button>
+                    <button onclick="filterNews('Keislaman')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-nu-800 hover:bg-slate-100 transition">Keislaman</button>
+                    <button onclick="filterNews('Banom & Lembaga')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-nu-800 hover:bg-slate-100 transition">Banom & Lembaga</button>
+                    <button onclick="filterNews('Opini')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-nu-800 hover:bg-slate-100 transition">Opini</button>
+                </nav>
+
+                <!-- Search & Mobile Menu Button -->
+                <div class="flex items-center space-x-2">
+                    <div class="relative hidden sm:block">
+                        <input type="text" id="search-input" onkeyup="searchNews()" placeholder="Cari artikel..." 
+                            class="w-48 lg:w-60 pl-9 pr-4 py-2 bg-slate-100 border border-transparent focus:bg-white focus:border-nu-600 rounded-full text-sm transition outline-none">
+                        <i class="fas fa-search absolute left-3.5 top-2.5 text-slate-400 text-sm"></i>
+                    </div>
+                    <button onclick="openSubmitModal()" class="hidden md:inline-flex items-center px-4 py-2 bg-nu-800 hover:bg-nu-900 text-white text-sm font-medium rounded-full shadow-sm transition">
+                        <i class="fas fa-pen-nib mr-2 text-gold-400"></i> Kirim Tulisan
+                    </button>
+                    <button onclick="openAdminGate()" id="header-admin-btn" class="hidden md:inline-flex items-center px-3.5 py-2 bg-gold-500/15 hover:bg-gold-500/25 text-nu-900 border border-gold-500/40 text-sm font-semibold rounded-full transition" title="Panel Redaksi">
+                        <i class="fas fa-cog text-gold-600"></i>
+                    </button>
+                    <!-- Hamburger Button Mobile -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Dropdown Mobile -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-3 pb-5 space-y-2 shadow-lg">
+            <div class="relative mb-3 sm:hidden">
+                <input type="text" id="mobile-search-input" onkeyup="searchNewsMobile()" placeholder="Cari berita atau kajian..." 
+                    class="w-full pl-9 pr-4 py-2 bg-slate-100 rounded-lg text-sm outline-none focus:ring-2 focus:ring-nu-600">
+                <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+            </div>
+            <button onclick="filterNews('all'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-semibold text-nu-800 bg-nu-50">Beranda</button>
+            <button onclick="filterNews('Warta NU'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50">Warta NU</button>
+            <div class="pt-2 border-t border-slate-100 space-y-2">
+                <button onclick="openSubmitModal(); toggleMobileMenu()" class="w-full py-2.5 bg-nu-800 text-white rounded-lg text-sm font-semibold flex justify-center items-center">
+                    <i class="fas fa-pen-nib mr-2 text-gold-400"></i> Kirim Tulisan / Warta
+                </button>
+                <button onclick="openAdminGate(); toggleMobileMenu()" class="w-full py-2.5 bg-gold-500 text-nu-900 rounded-lg text-sm font-bold flex justify-center items-center">
+                    <i class="fas fa-user-shield mr-2"></i> Panel Admin Redaksi
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breaking News Ticker -->
+    <div class="bg-nu-50 border-b border-nu-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center overflow-hidden">
+            <span class="bg-gold-500 text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0 mr-3 shadow-xs">
+                Sekilas Info
+            </span>
+            <div class="overflow-hidden relative w-full">
+                <p id="breaking-text" class="text-xs sm:text-sm font-medium text-nu-900 truncate transition-opacity duration-500">
+                    MWC NU Bandar Gelar Lailatul Ijtima' dan Bahtsul Masail Kubro di Masjid Agung Bandar.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Hero Section: Headline Utama & Berita Pilihan -->
+        <section id="hero-section" class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Utama (Kiri - 8 Kolom) -->
+                <div id="hero-featured-card" class="lg:col-span-8 group relative rounded-2xl overflow-hidden shadow-md bg-nu-900 min-h-[380px] sm:min-h-[460px] flex flex-col justify-end cursor-pointer" onclick="openArticleModal('default-1')">
+                    <img id="hero-image" src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" 
+                         onerror="this.src='https://placehold.co/1200x700/065f46/fbbf24?text=MWC+NU+Bandar'"
+                         alt="Kegiatan MWC NU Bandar" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-nu-900 via-nu-900/60 to-transparent"></div>
+                    
+                    <div class="relative p-6 sm:p-8 z-10">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Sorotan Utama</span>
+                            <span id="hero-date" class="text-emerald-200 text-xs font-medium"><i class="far fa-clock mr-1"></i> Terbaru</span>
+                        </div>
+                        <h1 id="hero-title" class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-gold-400 transition">
+                            Perkuat Kemandirian Ekonomi Umat, MWC NU Bandar Luncurkan Program Koperasi Syariah & Lumbung Pangan
+                        </h1>
+                        <p id="hero-excerpt" class="text-slate-200 text-sm sm:text-base line-clamp-2 mb-4 max-w-3xl">
+                            Melalui sinergi LPNU dan seluruh ranting se-Kecamatan Bandar, program ini diharapkan mampu menjadi motor penggerak kesejahteraan warga Nahdliyin secara berkelanjutan.
+                        </p>
+                        <div class="flex items-center text-xs text-slate-300 space-x-4">
+                            <span id="hero-author" class="flex items-center"><i class="far fa-user-circle mr-1.5 text-gold-400"></i> Redaksi Media NU Bandar</span>
+                            <span>•</span>
+                            <span><i class="fas fa-check-circle mr-1 text-emerald-400"></i> Terverifikasi LTN NU</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Berita Pilihan Samping (Kanan - 4 Kolom) -->
+                <div class="lg:col-span-4 flex flex-col justify-between gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                                <h2 class="font-serif font-bold text-lg text-nu-900 flex items-center">
+                                    <span class="w-1.5 h-5 bg-gold-500 rounded-full mr-2.5"></span>
+                                    Kajian & Khutbah
+                                </h2>
+                                <span class="text-xs font-semibold text-nu-700 bg-nu-50 px-2.5 py-1 rounded-full">Terbaru</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <!-- Item 1 -->
+                                <article onclick="openArticleModal('default-2')" class="group cursor-pointer border-b border-slate-100 pb-3.5">
+                                    <span class="text-[11px] font-bold text-gold-600 uppercase tracking-wider">Khutbah Jum'at</span>
+                                    <h3 class="font-semibold text-slate-800 group-hover:text-nu-800 transition text-sm sm:text-base leading-snug mt-1">
+                                        Menjaga Ukhuwah Wathaniyah di Tengah Dinamika Sosial Kemasyarakatan
+                                    </h3>
+                                    <span class="text-xs text-slate-400 mt-1.5 block">Oleh: KH. Ahmad Fauzi (Rais Syuriyah)</span>
+                                </article>
+
+                                <!-- Item 2 -->
+                                <article onclick="openArticleModal('default-3')" class="group cursor-pointer border-b border-slate-100 pb-3.5">
+                                    <span class="text-[11px] font-bold text-nu-700 uppercase tracking-wider">Bahtsul Masail</span>
+                                    <h3 class="font-semibold text-slate-800 group-hover:text-nu-800 transition text-sm sm:text-base leading-snug mt-1">
+                                        Hukum Transaksi Digital dan Paylater Menurut Perspektif Fiqih Muamalah Kontemporer
+                                    </h3>
+                                    <span class="text-xs text-slate-400 mt-1.5 block">Tim LBM MWC NU Bandar</span>
+                                </article>
+
+                                <!-- Item 3 -->
+                                <article onclick="openArticleModal('default-4')" class="group cursor-pointer">
+                                    <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Amaliyah NU</span>
+                                    <h3 class="font-semibold text-slate-800 group-hover:text-nu-800 transition text-sm sm:text-base leading-snug mt-1">
+                                        Keutamaan Membaca Shalawat Nariyah dan Dzikir Berjamaah pada Malam Jum'at
+                                    </h3>
+                                    <span class="text-xs text-slate-400 mt-1.5 block">Ust. Muhammad Ridwan</span>
+                                </article>
+                            </div>
+                        </div>
+
+                        <button onclick="filterNews('Keislaman')" class="mt-4 w-full py-2.5 bg-slate-50 hover:bg-nu-50 text-nu-800 text-xs font-bold uppercase tracking-wider rounded-xl border border-slate-200 transition flex items-center justify-center">
+                            Lihat Semua Kajian <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Content Grid: Daftar Berita (Kiri 8 Col) & Sidebar Widget (Kanan 4 Col) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Kolom Daftar Artikel Utama -->
+            <div class="lg:col-span-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-slate-200 pb-3 mb-6 gap-2">
+                    <h2 id="section-title" class="font-serif text-2xl font-bold text-nu-900 flex items-center">
+                        <i class="fas fa-newspaper text-gold-500 mr-2.5"></i> Warta Terkini
+                    </h2>
+                    <div class="flex flex-wrap gap-1.5" id="category-pills">
+                        <button onclick="filterNews('all')" class="pill-btn active text-xs font-semibold px-3 py-1.5 rounded-full bg-nu-800 text-white transition">Semua</button>
+                        <button onclick="filterNews('Warta NU')" class="pill-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-nu-700 transition">Warta NU</button>
+                        <button onclick="filterNews('Banom & Lembaga')" class="pill-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-nu-700 transition">Banom</button>
+                        <button onclick="filterNews('Opini')" class="pill-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-nu-700 transition">Opini</button>
+                    </div>
+                </div>
+
+                <!-- Container Kartu Berita (Diisi via JavaScript) -->
+                <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Artikel dirender di sini -->
+                </div>
+
+                <!-- Pesan Jika Pencarian Kosong -->
+                <div id="empty-state" class="hidden bg-white rounded-2xl p-10 text-center border border-slate-200">
+                    <i class="fas fa-search text-4xl text-slate-300 mb-3"></i>
+                    <h3 class="text-lg font-bold text-slate-700">Artikel tidak ditemukan</h3>
+                    <p class="text-sm text-slate-500 mt-1">Coba gunakan kata kunci pencarian lain atau pilih kategori berbeda.</p>
+                    <button onclick="filterNews('all')" class="mt-4 px-4 py-2 bg-nu-800 text-white text-sm rounded-lg">Tampilkan Semua Berita</button>
+                </div>
+            </div>
+
+            <!-- Sidebar Kanan (4 Kolom) -->
+            <aside class="lg:col-span-4 space-y-6">
+                
+                <!-- Widget 1: Jadwal Waktu Sholat Wilayah Bandar -->
+                <div id="jadwal-sholat" class="bg-gradient-to-br from-nu-900 to-nu-800 rounded-2xl p-6 text-white shadow-md relative overflow-hidden">
+                    <div class="absolute -right-6 -top-6 text-nu-700/30 text-8xl pointer-events-none">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-xs uppercase tracking-widest text-gold-400 font-bold">Jadwal Sholat</span>
+                                <h3 class="font-serif text-xl font-bold">Kecamatan Bandar</h3>
+                            </div>
+                            <span class="bg-white/10 backdrop-blur-xs text-xs px-2.5 py-1 rounded-lg border border-white/10">WIB</span>
+                        </div>
+
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center bg-white/10 px-3.5 py-2 rounded-xl">
+                                <span class="text-emerald-100">Subuh</span>
+                                <span class="font-bold text-gold-400">04:15</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white/5 px-3.5 py-2 rounded-xl">
+                                <span class="text-emerald-100">Dzuhur</span>
+                                <span class="font-bold">11:42</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white/5 px-3.5 py-2 rounded-xl">
+                                <span class="text-emerald-100">Ashar</span>
+                                <span class="font-bold">15:03</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white/5 px-3.5 py-2 rounded-xl">
+                                <span class="text-emerald-100">Maghrib</span>
+                                <span class="font-bold">17:48</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white/5 px-3.5 py-2 rounded-xl">
+                                <span class="text-emerald-100">Isya'</span>
+                                <span class="font-bold">19:00</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-emerald-200/80 mt-3 text-center">*Berdasarkan perhitungan Lembaga Falakiyah NU</p>
+                    </div>
+                </div>
+
+                <!-- Widget 2: Quote Ulama Nusantara -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 relative">
+                    <i class="fas fa-quote-left text-3xl text-nu-100 absolute top-5 left-5"></i>
+                    <div class="relative z-10 pt-2">
+                        <p class="font-serif italic text-slate-700 text-base leading-relaxed mb-4">
+                            "Agama dan nasionalisme adalah dua kutub yang tidak berseberangan. Nasionalisme adalah bagian dari agama, dan keduanya saling menguatkan."
+                        </p>
+                        <div class="flex items-center space-x-3 border-t border-slate-100 pt-3">
+                            <div class="w-10 h-10 rounded-full bg-nu-800 text-gold-400 flex items-center justify-center font-serif font-bold text-sm">
+                                KH
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-nu-900">KH. M. Hasyim Asy'ari</h4>
+                                <p class="text-xs text-slate-500">Hadratussyaikh Pendiri Nahdlatul Ulama</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget 3: Direktori Banom & Lembaga -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+                    <h3 class="font-serif font-bold text-lg text-nu-900 mb-4 flex items-center">
+                        <span class="w-1.5 h-5 bg-nu-800 rounded-full mr-2.5"></span>
+                        Sinergi Banom Bandar
+                    </h3>
+                    <div class="grid grid-cols-2 gap-2.5 text-xs font-semibold">
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-users text-nu-700"></i>
+                            <span>Muslimat NU</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-shield-alt text-nu-700"></i>
+                            <span>GP Ansor & Banser</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-female text-nu-700"></i>
+                            <span>Fatayat NU</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-graduation-cap text-nu-700"></i>
+                            <span>IPNU & IPPNU</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-hand-holding-heart text-nu-700"></i>
+                            <span>LAZISNU Bandar</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-nu-600 transition flex items-center space-x-2">
+                            <i class="fas fa-fist-raised text-nu-700"></i>
+                            <span>Pagar Nusa</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer Profesional -->
+    <footer class="bg-nu-900 text-slate-300 mt-16 border-t-4 border-gold-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Kolom 1: Tentang -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-nu-800 flex items-center justify-center border border-gold-500/40">
+                            <i class="fas fa-globe text-gold-400 text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-xl text-white">MEDIA NU BANDAR</span>
+                            <p class="text-[11px] text-emerald-300 tracking-wider">LEMBAGA TA'LIF WAN NASYR (LTN) MWC NU BANDAR</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-md mb-5">
+                        Media resmi Majelis Wakil Cabang Nahdlatul Ulama (MWC NU) Kecamatan Bandar. Menyajikan informasi akurat, dakwah Islam Ahlussunnah wal Jama'ah An-Nahdliyah yang sejuk, moderat, dan mencerahkan.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-nu-800 hover:bg-gold-500 hover:text-nu-900 flex items-center justify-center transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-nu-800 hover:bg-gold-500 hover:text-nu-900 flex items-center justify-center transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-nu-800 hover:bg-gold-500 hover:text-nu-900 flex items-center justify-center transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-nu-800 hover:bg-gold-500 hover:text-nu-900 flex items-center justify-center transition"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Rubrik -->
+                <div>
+                    <h4 class="text-white font-serif font-bold text-base mb-4">Rubrik Utama</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" onclick="filterNews('Warta NU')" class="hover:text-gold-400 transition">Warta Ranting & MWC</a></li>
+                        <li><a href="#" onclick="filterNews('Keislaman')" class="hover:text-gold-400 transition">Khutbah & Kajian Kitab</a></li>
+                        <li><a href="#" onclick="filterNews('Banom & Lembaga')" class="hover:text-gold-400 transition">Kabar Banom & Lembaga</a></li>
+                        <li><a href="#" onclick="filterNews('Opini')" class="hover:text-gold-400 transition">Opini & Pemikiran</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Sekretariat -->
+                <div>
+                    <h4 class="text-white font-serif font-bold text-base mb-4">Kantor Redaksi</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-start space-x-2.5">
+                            <i class="fas fa-map-marker-alt text-gold-400 mt-1"></i>
+                            <span>Gedung Dakwah MWC NU Bandar, Jl. Raya Bandar, Kec. Bandar</span>
+                        </li>
+                        <li class="flex items-center space-x-2.5">
+                            <i class="fas fa-envelope text-gold-400"></i>
+                            <span>redaksi@medianubandar.or.id</span>
+                        </li>
+                        <li class="flex items-center space-x-2.5">
+                            <i class="fas fa-phone-alt text-gold-400"></i>
+                            <span>+62 812-3456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-nu-800 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-4">
+                <p>&copy; 2026 Media NU Bandar - LTN MWC NU Bandar. Hak Cipta Dilindungi.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-white transition">Tentang Kami</a>
+                    <a href="#" class="hover:text-white transition">Pedoman Media Siber</a>
+                    <button onclick="openAdminGate()" class="hover:text-gold-400 transition">Akses Pengurus</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Pembaca Artikel Lengkap -->
+    <div id="article-modal" class="fixed inset-0 z-50 hidden bg-slate-900/75 backdrop-blur-xs overflow-y-auto p-4 sm:p-6">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden my-8 animate-fade-in">
+            <!-- Header Modal -->
+            <div class="flex justify-between items-center px-6 py-4 bg-nu-900 text-white">
+                <span id="modal-category" class="bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Warta NU</span>
+                <button onclick="closeArticleModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Konten Artikel -->
+            <div class="p-6 sm:p-8">
+                <h2 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-nu-900 leading-tight mb-4">Judul Artikel</h2>
+                
+                <div class="flex flex-wrap items-center text-xs text-slate-500 gap-4 pb-5 mb-6 border-b border-slate-200">
+                    <span id="modal-author" class="font-semibold text-nu-800"><i class="far fa-user mr-1"></i> Penulis</span>
+                    <span id="modal-date"><i class="far fa-calendar mr-1"></i> Tanggal</span>
+                    <button onclick="copyArticleLink()" class="ml-auto text-nu-700 hover:text-nu-900 font-semibold flex items-center bg-nu-50 px-3 py-1.5 rounded-lg transition">
+                        <i class="fas fa-share-alt mr-1.5"></i> Salin Tautan
+                    </button>
+                </div>
+
+                <img id="modal-image" src="" alt="Gambar Artikel" class="w-full h-64 sm:h-80 object-cover rounded-xl mb-6 shadow-xs">
+                
+                <div id="modal-content" class="prose max-w-none text-slate-700 leading-relaxed space-y-4 text-sm sm:text-base">
+                    <!-- Isi artikel dirender di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Form Kirim Tulisan / Warta Ranting -->
+    <div id="submit-modal" class="fixed inset-0 z-50 hidden bg-slate-900/75 backdrop-blur-xs overflow-y-auto p-4">
+        <div class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden my-10">
+            <div class="px-6 py-4 bg-nu-800 text-white flex justify-between items-center">
+                <h3 class="font-serif font-bold text-lg"><i class="fas fa-pen-nib text-gold-400 mr-2"></i>Kirim Warta / Tulisan</h3>
+                <button onclick="closeSubmitModal()" class="text-white/80 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form onsubmit="handleArticleSubmit(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Penulis / Kontributor Ranting</label>
+                    <input type="text" id="input-author" required placeholder="Contoh: Ahmad (PRNU Desa Bandar)" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kategori Rubrik</label>
+                    <select id="input-category" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                        <option value="Warta NU">Warta NU</option>
+                        <option value="Keislaman">Keislaman</option>
+                        <option value="Banom & Lembaga">Banom & Lembaga</option>
+                        <option value="Opini">Opini</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Judul Berita / Artikel</label>
+                    <input type="text" id="input-title" required placeholder="Masukkan judul yang menarik dan informatif" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Isi Ringkas Berita</label>
+                    <textarea id="input-body" rows="4" required placeholder="Tuliskan detail kegiatan atau gagasan Anda..." class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none"></textarea>
+                </div>
+                <div class="bg-nu-50 p-3 rounded-xl text-xs text-nu-800 flex items-start gap-2">
+                    <i class="fas fa-info-circle mt-0.5 text-nu-700"></i>
+                    <span>Tulisan yang dikirim kontributor akan masuk ke antrean moderasi redaksi sebelum tayang di halaman utama.</span>
+                </div>
+                <div class="pt-2 flex justify-end space-x-2">
+                    <button type="button" onclick="closeSubmitModal()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+                    <button type="submit" id="btn-submit-article" class="px-5 py-2 bg-nu-800 hover:bg-nu-900 text-white text-sm font-semibold rounded-xl shadow-sm">Kirim ke Redaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Login Admin Redaksi -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-xs overflow-y-auto p-4 flex items-center justify-center">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div class="px-6 py-5 bg-nu-900 text-white flex justify-between items-center border-b border-gold-500/30">
+                <div class="flex items-center gap-2.5">
+                    <i class="fas fa-user-shield text-gold-400 text-xl"></i>
+                    <div>
+                        <h3 class="font-serif font-bold text-lg">Login Redaksi NU Bandar</h3>
+                        <p class="text-[11px] text-emerald-300">Khusus Pengurus LTN MWC NU Bandar</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminLoginModal()" class="text-white/70 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Kata Sandi Pengurus</label>
+                    <input type="password" id="admin-password-input" required placeholder="Masukkan kata sandi admin..." class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                    <p class="text-[11px] text-slate-500 mt-1.5">Sandi default: <code class="bg-slate-100 px-1.5 py-0.5 rounded font-bold text-nu-800">nubandar2026</code></p>
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeAdminLoginModal()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-nu-800 hover:bg-nu-900 text-white text-sm font-semibold rounded-xl shadow-sm">Masuk Dashboard</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Dashboard Panel Admin Lengkap -->
+    <div id="admin-dashboard-modal" class="fixed inset-0 z-50 hidden bg-slate-900/85 backdrop-blur-xs overflow-y-auto p-3 sm:p-6">
+        <div class="max-w-6xl mx-auto bg-slate-50 rounded-2xl shadow-2xl overflow-hidden my-4 border border-slate-200">
+            <!-- Top Bar Dashboard -->
+            <div class="px-6 py-4 bg-nu-900 text-white flex flex-wrap justify-between items-center gap-4 border-b-2 border-gold-500">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-nu-800 border border-gold-500/40 flex items-center justify-center text-gold-400">
+                        <i class="fas fa-newspaper text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-serif font-bold text-lg sm:text-xl">Panel Redaksi Media NU Bandar</h2>
+                        <p class="text-xs text-emerald-300">Kelola Berita, Moderasi Kontributor & Sekilas Info</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <button onclick="openAdminEditor()" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-nu-950 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition flex items-center">
+                        <i class="fas fa-plus mr-1.5"></i> Tulis Berita Baru
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-3.5 py-2 bg-red-600/90 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+                    </button>
+                    <button onclick="closeAdminDashboard()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition" title="Tutup Panel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistik Ringkas -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-white border-b border-slate-200">
+                <div class="p-4 rounded-xl bg-nu-50 border border-nu-100">
+                    <span class="text-xs text-nu-700 font-semibold">Total Artikel</span>
+                    <p id="stat-total" class="text-2xl font-bold text-nu-900 mt-1">0</p>
+                </div>
+                <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                    <span class="text-xs text-emerald-700 font-semibold">Sudah Tayang</span>
+                    <p id="stat-published" class="text-2xl font-bold text-emerald-900 mt-1">0</p>
+                </div>
+                <div class="p-4 rounded-xl bg-amber-50 border border-amber-100">
+                    <span class="text-xs text-amber-700 font-semibold">Menunggu Persetujuan</span>
+                    <p id="stat-pending" class="text-2xl font-bold text-amber-900 mt-1">0</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                    <span class="text-xs text-slate-600 font-semibold">Status Penyimpanan</span>
+                    <p class="text-sm font-bold text-nu-800 mt-2 flex items-center gap-1.5"><i class="fas fa-cloud text-emerald-600"></i> Tersinkronisasi</p>
+                </div>
+            </div>
+
+            <!-- Form Editor Tambah / Edit Berita Admin (Tersembunyi secara default) -->
+            <div id="admin-editor-box" class="hidden p-6 bg-nu-50/70 border-b border-slate-200">
+                <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-nu-200">
+                    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                        <h3 id="editor-form-title" class="font-serif font-bold text-lg text-nu-900">Tulis Berita Resmi Redaksi</h3>
+                        <button onclick="closeAdminEditor()" class="text-slate-400 hover:text-slate-700"><i class="fas fa-times"></i></button>
+                    </div>
+                    <form onsubmit="saveAdminArticle(event)" class="space-y-4">
+                        <input type="hidden" id="edit-article-id">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Judul Berita / Artikel</label>
+                                <input type="text" id="admin-title" required placeholder="Judul lengkap berita..." class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kategori Rubrik</label>
+                                <select id="admin-category" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                                    <option value="Warta NU">Warta NU</option>
+                                    <option value="Keislaman">Keislaman</option>
+                                    <option value="Banom & Lembaga">Banom & Lembaga</option>
+                                    <option value="Opini">Opini</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Penulis / Redaktur</label>
+                                <input type="text" id="admin-author" required value="Redaksi Media NU Bandar" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">URL Gambar Sampul (Opsional)</label>
+                                <input type="url" id="admin-image" placeholder="https://..." class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Isi Lengkap Berita</label>
+                            <textarea id="admin-content" rows="6" required placeholder="Tulis isi artikel lengkap di sini (pisahkan paragraf dengan Enter)..." class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:border-nu-700 outline-none"></textarea>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                            <label class="flex items-center space-x-2 text-xs font-semibold text-nu-900 cursor-pointer">
+                                <input type="checkbox" id="admin-featured" class="rounded text-nu-800 focus:ring-nu-700 w-4 h-4">
+                                <span>Jadikan Sorotan Utama (Hero Headline)</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <button type="button" onclick="closeAdminEditor()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+                                <button type="submit" class="px-6 py-2 bg-nu-800 hover:bg-nu-900 text-white text-sm font-bold rounded-xl shadow-sm">Simpan & Terbitkan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pengaturan Sekilas Info & Daftar Tabel Berita -->
+            <div class="p-6 space-y-6">
+                <!-- Pengaturan Sekilas Info -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <span class="text-xs font-bold uppercase text-nu-800 shrink-0 flex items-center"><i class="fas fa-bullhorn text-gold-500 mr-2"></i> Update Sekilas Info:</span>
+                    <input type="text" id="admin-ticker-input" placeholder="Ketik pengumuman penting MWC NU Bandar..." class="flex-1 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:border-nu-700">
+                    <button onclick="saveTickerText()" class="px-4 py-2 bg-nu-800 hover:bg-nu-900 text-white text-xs font-bold rounded-xl shrink-0">Perbarui Info</button>
+                </div>
+
+                <!-- Daftar Manajemen Artikel -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="px-5 py-3.5 bg-slate-100/80 border-b border-slate-200 flex justify-between items-center">
+                        <h4 class="font-bold text-sm text-slate-800">Daftar Semua Artikel & Kiriman Kontributor</h4>
+                        <span class="text-xs text-slate-500">Klik tombol aksi untuk mengelola</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="border-b border-slate-200 text-xs uppercase text-slate-500 bg-slate-50">
+                                    <th class="py-3 px-4">Judul & Penulis</th>
+                                    <th class="py-3 px-4">Kategori</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4 text-right">Aksi Pengurus</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-articles-table" class="divide-y divide-slate-100">
+                                <!-- Baris artikel dirender lewat JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifikasi Toast Pengganti alert() -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 hidden bg-nu-900 text-white px-5 py-3.5 rounded-xl shadow-xl border border-gold-500/40 flex items-center space-x-3 transition-all">
+        <i class="fas fa-check-circle text-gold-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Pesan notifikasi</span>
+    </div>
+
+    <!-- JavaScript & Firebase Cloud Sync -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Konfigurasi & Inisialisasi Cloud Storage
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'media-nu-bandar';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let isAdminLoggedIn = false;
+        let currentCategoryFilter = 'all';
+
+        // Data Artikel Bawaan (Sebagai tampilan awal sebelum ada data baru di database)
+        const defaultArticles = [
+            {
+                id: "default-1",
+                title: "Perkuat Kemandirian Ekonomi Umat, MWC NU Bandar Luncurkan Program Koperasi Syariah & Lumbung Pangan",
+                category: "Warta NU",
+                author: "Redaksi Media NU Bandar",
+                date: "17 November 2026",
+                status: "published",
+                featured: true,
+                image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Melalui sinergi LPNU dan seluruh ranting se-Kecamatan Bandar, program ini diharapkan mampu menjadi motor penggerak kesejahteraan warga Nahdliyin.",
+                content: `<p><strong>BANDAR</strong> – Majelis Wakil Cabang Nahdlatul Ulama (MWC NU) Kecamatan Bandar resmi meluncurkan program strategis kemandirian ekonomi umat berupa Koperasi Syariah dan Lumbung Pangan Ranting pada Ahad pagi.</p>
+                <p>Ketua Tanfidziyah MWC NU Bandar menyampaikan bahwa penguatan sektor riil di tingkat akar rumput merupakan wujud nyata khidmat jam'iyah kepada masyarakat.</p>
+                <p>"Kita memiliki potensi jamaah dan sumber daya pertanian yang luar biasa di Kecamatan Bandar. Melalui koperasi syariah ini, hasil bumi warga dapat terserap dengan harga adil," ungkapnya di hadapan ratusan pengurus ranting dan badan otonom.</p>`
+            },
+            {
+                id: "default-2",
+                title: "Menjaga Ukhuwah Wathaniyah di Tengah Dinamika Sosial Kemasyarakatan",
+                category: "Keislaman",
+                author: "KH. Ahmad Fauzi",
+                date: "16 November 2026",
+                status: "published",
+                featured: false,
+                image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Naskah khutbah Jum'at yang mengulas pentingnya merawat persaudaraan sebangsa dan setanah air sebagai bagian dari ajaran Islam Rahmatan lil 'Alamin.",
+                content: `<p><em>Ma'asyiral Muslimin Rahimakumullah,</em></p>
+                <p>Islam hadir di muka bumi membawa misi kasih sayang bagi seluruh alam semesta. Di Indonesia, para ulama Nahdlatul Ulama telah mewariskan konsep trilogi ukhuwah: Ukhuwah Islamiyah, Ukhuwah Wathaniyah, dan Ukhuwah Basyariyah.</p>
+                <p>Perbedaan pandangan dalam kehidupan bermasyarakat hendaknya tidak menjadi pemecah belah, melainkan kekayaan yang dikelola dengan akhlakul karimah dan tabayyun.</p>`
+            },
+            {
+                id: "default-3",
+                title: "Hukum Transaksi Digital dan Paylater Menurut Perspektif Fiqih Muamalah Kontemporer",
+                category: "Keislaman",
+                author: "Tim LBM MWC NU Bandar",
+                date: "15 November 2026",
+                status: "published",
+                featured: false,
+                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Hasil rumusan Bahtsul Masail yang membahas ketentuan akad utang-piutang dalam sistem pembayaran digital modern agar terhindar dari unsur riba.",
+                content: `<p>Perkembangan teknologi finansial menghadirkan berbagai kemudahan transaksi, salah satunya fitur beli sekarang bayar nanti atau <em>paylater</em>.</p>
+                <p>Dalam forum Bahtsul Masail MWC NU Bandar, para kiai muda mengkaji secara mendalam struktur akad yang digunakan. Jika terdapat tambahan biaya yang dipersyaratkan di awal akibat penundaan pembayaran (qardh jarra naf'an), maka hal tersebut masuk dalam kategori yang dilarang syariat.</p>`
+            },
+            {
+                id: "default-4",
+                title: "PAC GP Ansor dan Banser Bandar Gelar Diklatsar untuk Cetak Kader Militan Penjaga Negeri",
+                category: "Banom & Lembaga",
+                author: "Sahabat Hendra",
+                date: "14 November 2026",
+                status: "published",
+                featured: false,
+                image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Puluhan pemuda mengikuti Pendidikan dan Pelatihan Dasar (Diklatsar) Banser dengan penuh semangat kebangsaan dan pengabdian kepada ulama.",
+                content: `<p><strong>BANDAR</strong> – Pimpinan Anak Cabang (PAC) Gerakan Pemuda Ansor Kecamatan Bandar sukses menyelenggarakan Pendidikan dan Pelatihan Dasar (Diklatsar) Banser angkatan terbaru.</p>
+                <p>Kegiatan selama tiga hari tersebut membekali para peserta dengan materi ke-Aswaja-an, ke-NU-an, wawasan kebangsaan, serta ketangkasan penanggulangan bencana alam.</p>`
+            },
+            {
+                id: "default-5",
+                title: "LAZISNU Bandar Salurkan Santunan Yatim dan Beasiswa Pendidikan Santri Berprestasi",
+                category: "Banom & Lembaga",
+                author: "Tim NU Care-LAZISNU",
+                date: "13 November 2026",
+                status: "published",
+                featured: false,
+                image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Penghimpunan Koin NU dari warga Nahdliyin se-Kecamatan Bandar kembali diwujudkan dalam program nyata peduli pendidikan dan sosial.",
+                content: `<p>Program Gerakan Koin NU (Kotak Infak Nahdlatul Ulama) di Kecamatan Bandar terus menunjukkan dampak positif bagi masyarakat luas.</p>
+                <p>Pada bulan ini, NU Care-LAZISNU MWC NU Bandar menyalurkan bantuan biaya pendidikan kepada 45 pelajar dan santri berprestasi dari keluarga kurang mampu.</p>`
+            },
+            {
+                id: "default-6",
+                title: "Tantangan Dakwah Digital Santri di Era Algoritma Media Sosial",
+                category: "Opini",
+                author: "M. Zulfikar (Ketua LTN NU Bandar)",
+                date: "12 November 2026",
+                status: "published",
+                featured: false,
+                image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Ruang digital bukan sekadar tempat hiburan, melainkan medan dakwah baru yang menuntut kreativitas kader muda NU dalam menyebarkan literasi Islam damai.",
+                content: `<p>Arus informasi di media sosial bergerak begitu cepat. Tanpa kehadiran konten-konten keislaman yang otoritatif dan santun, ruang publik digital mudah dipenuhi narasi yang memecah belah.</p>
+                <p>Sudah saatnya pesantren dan kader muda NU di Bandar mengambil peran aktif sebagai produsen konten kreatif yang mengemas khazanah kitab kuning ke dalam bahasa visual yang mudah dipahami generasi muda.</p>`
+            }
+        ];
+
+        let cloudArticles = [];
+        let allArticles = [...defaultArticles];
+
+        // Inisialisasi Auth & Listener Firestore
+        async function initCloudSync() {
+            if (!firebaseConfig) {
+                renderAllViews();
+                return;
+            }
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    if (user) {
+                        listenArticles();
+                        listenSettings();
+                    }
+                });
+            } catch (err) {
+                console.error("Gagal menyambungkan penyimpanan:", err);
+                renderAllViews();
+            }
+        }
+
+        function listenArticles() {
+            if (!db || !currentUser) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'articles');
+            onSnapshot(colRef, (snapshot) => {
+                cloudArticles = [];
+                snapshot.forEach(docSnap => {
+                    cloudArticles.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                // Urutkan terbaru di atas
+                cloudArticles.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                allArticles = [...cloudArticles, ...defaultArticles];
+                renderAllViews();
+            }, (error) => {
+                console.error("Error memuat artikel:", error);
+            });
+        }
+
+        function listenSettings() {
+            if (!db || !currentUser) return;
+            const settingDoc = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'general');
+            onSnapshot(settingDoc, (docSnap) => {
+                if (docSnap.exists() && docSnap.data().tickerText) {
+                    const customTicker = docSnap.data().tickerText;
+                    document.getElementById('breaking-text').textContent = customTicker;
+                    document.getElementById('admin-ticker-input').value = customTicker;
+                    breakingNewsList[0] = customTicker;
+                }
+            }, (error) => {
+                console.error("Error memuat pengaturan:", error);
+            });
+        }
+
+        function renderAllViews() {
+            // Update Hero Section jika ada artikel featured
+            const publishedArticles = allArticles.filter(a => a.status !== 'pending');
+            const featured = publishedArticles.find(a => a.featured) || publishedArticles[0];
+            if (featured) {
+                document.getElementById('hero-featured-card').setAttribute('onclick', `openArticleModal('${featured.id}')`);
+                document.getElementById('hero-image').src = featured.image || 'https://placehold.co/1200x700/065f46/fbbf24?text=Media+NU+Bandar';
+                document.getElementById('hero-title').textContent = featured.title;
+                document.getElementById('hero-excerpt').textContent = featured.excerpt;
+                document.getElementById('hero-author').innerHTML = `<i class="far fa-user-circle mr-1.5 text-gold-400"></i> ${featured.author}`;
+                document.getElementById('hero-date').innerHTML = `<i class="far fa-clock mr-1"></i> ${featured.date}`;
+            }
+
+            // Render grid berita publik (hanya yang berstatus published)
+            filterNews(currentCategoryFilter);
+
+            // Render tabel admin jika sedang terbuka
+            renderAdminTable();
+        }
+
+        // Inisialisasi Tanggal Hari Ini
+        function initDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('id-ID', options);
+            document.getElementById('current-date').innerHTML = `<i class="far fa-calendar-alt mr-2"></i> ${today}`;
+        }
+
+        // Rotasi Sekilas Info (Breaking News)
+        const breakingNewsList = [
+            "MWC NU Bandar Gelar Lailatul Ijtima' dan Bahtsul Masail Kubro di Masjid Agung Bandar.",
+            "LAZISNU Bandar Buka Layanan Jemput Zakat, Infak, dan Sedekah untuk Program Beasiswa Santri.",
+            "Pelajar IPNU-IPPNU Bandar Raih Juara Umum dalam Pekan Olahraga dan Seni Pelajar.",
+            "Redaksi Media NU Bandar Membuka Ruang Kirim Artikel Opini dan Warta Kegiatan Ranting."
+        ];
+        let breakingIndex = 0;
+        setInterval(() => {
+            const el = document.getElementById('breaking-text');
+            el.style.opacity = 0;
+            setTimeout(() => {
+                breakingIndex = (breakingIndex + 1) % breakingNewsList.length;
+                el.textContent = breakingNewsList[breakingIndex];
+                el.style.opacity = 1;
+            }, 400);
+        }, 5500);
+
+        // Render Daftar Kartu Berita Publik
+        function renderNews(data) {
+            const grid = document.getElementById('news-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            data.forEach(item => {
+                const card = `
+                <article onclick="openArticleModal('${item.id}')" class="bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200/80 transition duration-300 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-slate-200">
+                            <img src="${item.image}" 
+                                 onerror="this.src='https://placehold.co/800x500/065f46/ffffff?text=Media+NU+Bandar'"
+                                 alt="${item.title}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-nu-900/90 backdrop-blur-xs text-gold-400 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                ${item.category}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center text-xs text-slate-400 mb-2 space-x-2">
+                                <span><i class="far fa-calendar mr-1"></i> ${item.date}</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-lg text-slate-800 group-hover:text-nu-800 transition leading-snug mb-2.5 line-clamp-2">
+                                ${item.title}
+                            </h3>
+                            <p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                ${item.excerpt}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-5 py-3.5 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span class="font-medium text-slate-600 truncate max-w-[180px]">
+                            <i class="far fa-user-circle text-nu-700 mr-1"></i> ${item.author}
+                        </span>
+                        <span class="text-nu-800 font-bold group-hover:translate-x-1 transition">Baca <i class="fas fa-chevron-right text-[10px] ml-0.5"></i></span>
+                    </div>
+                </article>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Filter Berita Berdasarkan Kategori (Hanya menampilkan yang published)
+        window.filterNews = function(category) {
+            currentCategoryFilter = category;
+            document.querySelectorAll('.pill-btn').forEach(btn => {
+                if (btn.textContent.includes(category) || (category === 'all' && btn.textContent === 'Semua')) {
+                    btn.className = 'pill-btn active text-xs font-semibold px-3 py-1.5 rounded-full bg-nu-800 text-white transition';
+                } else {
+                    btn.className = 'pill-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-nu-700 transition';
+                }
+            });
+
+            const publishedOnly = allArticles.filter(item => item.status !== 'pending');
+            const titleEl = document.getElementById('section-title');
+            if (category === 'all') {
+                titleEl.innerHTML = `<i class="fas fa-newspaper text-gold-500 mr-2.5"></i> Warta Terkini`;
+                renderNews(publishedOnly);
+            } else {
+                titleEl.innerHTML = `<i class="fas fa-folder-open text-gold-500 mr-2.5"></i> Rubrik: ${category}`;
+                const filtered = publishedOnly.filter(item => item.category === category);
+                renderNews(filtered);
+            }
+        };
+
+        window.searchNews = function() {
+            const keyword = document.getElementById('search-input').value.toLowerCase();
+            const publishedOnly = allArticles.filter(item => item.status !== 'pending');
+            const filtered = publishedOnly.filter(item => 
+                item.title.toLowerCase().includes(keyword) || 
+                item.excerpt.toLowerCase().includes(keyword) ||
+                item.author.toLowerCase().includes(keyword)
+            );
+            renderNews(filtered);
+        };
+
+        window.searchNewsMobile = function() {
+            const keyword = document.getElementById('mobile-search-input').value.toLowerCase();
+            const publishedOnly = allArticles.filter(item => item.status !== 'pending');
+            const filtered = publishedOnly.filter(item => 
+                item.title.toLowerCase().includes(keyword) || 
+                item.excerpt.toLowerCase().includes(keyword)
+            );
+            renderNews(filtered);
+        };
+
+        window.toggleMobileMenu = function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        };
+
+        // Modal Pembaca Artikel
+        window.openArticleModal = function(id) {
+            const article = allArticles.find(a => String(a.id) === String(id));
+            if (!article) return;
+
+            document.getElementById('modal-category').textContent = article.category;
+            document.getElementById('modal-title').textContent = article.title;
+            document.getElementById('modal-author').innerHTML = `<i class="far fa-user mr-1"></i> ${article.author}`;
+            document.getElementById('modal-date').innerHTML = `<i class="far fa-calendar mr-1"></i> ${article.date}`;
+            document.getElementById('modal-image').src = article.image;
+            document.getElementById('modal-content').innerHTML = article.content;
+
+            document.getElementById('article-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeArticleModal = function() {
+            document.getElementById('article-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        };
+
+        // Modal Kirim Tulisan Kontributor (Masuk Antrean Moderasi)
+        window.openSubmitModal = function() {
+            document.getElementById('submit-modal').classList.remove('hidden');
+        };
+
+        window.closeSubmitModal = function() {
+            document.getElementById('submit-modal').classList.add('hidden');
+        };
+
+        window.handleArticleSubmit = async function(event) {
+            event.preventDefault();
+            const author = document.getElementById('input-author').value;
+            const category = document.getElementById('input-category').value;
+            const title = document.getElementById('input-title').value;
+            const body = document.getElementById('input-body').value;
+
+            const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            const newArticle = {
+                title: title,
+                category: category,
+                author: author,
+                date: todayStr,
+                status: isAdminLoggedIn ? "published" : "pending", // Jika admin yang kirim langsung tayang
+                featured: false,
+                createdAt: Date.now(),
+                image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
+                excerpt: body.substring(0, 130) + "...",
+                content: `<p>${body.replace(/\n/g, '</p><p>')}</p>`
+            };
+
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'articles'), newArticle);
+                } else {
+                    newArticle.id = 'local-' + Date.now();
+                    allArticles.unshift(newArticle);
+                    renderAllViews();
+                }
+                closeSubmitModal();
+                event.target.reset();
+                showToast(isAdminLoggedIn ? "Berita berhasil diterbitkan!" : "Tulisan terkirim! Menunggu persetujuan Admin Redaksi.");
+            } catch (e) {
+                console.error(e);
+                showToast("Terjadi kendala saat mengirim tulisan.");
+            }
+        };
+
+        // ================= SISTEM ADMIN REDAKSI =================
+        window.openAdminGate = function() {
+            if (isAdminLoggedIn) {
+                document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+                renderAdminTable();
+            } else {
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+                document.getElementById('admin-password-input').focus();
+            }
+        };
+
+        window.closeAdminLoginModal = function() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        };
+
+        window.handleAdminLogin = function(event) {
+            event.preventDefault();
+            const pass = document.getElementById('admin-password-input').value;
+            if (pass === 'nubandar2026') {
+                isAdminLoggedIn = true;
+                document.getElementById('top-admin-label').textContent = 'Dashboard Admin';
+                closeAdminLoginModal();
+                document.getElementById('admin-password-input').value = '';
+                document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+                renderAdminTable();
+                showToast("Selamat datang di Panel Redaksi Media NU Bandar!");
+            } else {
+                showToast("Kata sandi salah! Gunakan sandi: nubandar2026");
+            }
+        };
+
+        window.logoutAdmin = function() {
+            isAdminLoggedIn = false;
+            document.getElementById('top-admin-label').textContent = 'Login Admin';
+            closeAdminDashboard();
+            showToast("Anda telah keluar dari mode Admin.");
+        };
+
+        window.closeAdminDashboard = function() {
+            document.getElementById('admin-dashboard-modal').classList.add('hidden');
+            closeAdminEditor();
+        };
+
+        window.openAdminEditor = function(articleId = null) {
+            const box = document.getElementById('admin-editor-box');
+            box.classList.remove('hidden');
+            if (articleId) {
+                const item = allArticles.find(a => String(a.id) === String(articleId));
+                if (!item) return;
+                document.getElementById('editor-form-title').textContent = "Edit Artikel";
+                document.getElementById('edit-article-id').value = item.id;
+                document.getElementById('admin-title').value = item.title;
+                document.getElementById('admin-category').value = item.category;
+                document.getElementById('admin-author').value = item.author;
+                document.getElementById('admin-image').value = item.image || '';
+                document.getElementById('admin-featured').checked = !!item.featured;
+                // Bersihkan tag HTML paragraf untuk diedit
+                const plainText = item.content.replace(/<\/p><p>/g, '\n').replace(/<\/?[^>]+(>|$)/g, "");
+                document.getElementById('admin-content').value = plainText;
+            } else {
+                document.getElementById('editor-form-title').textContent = "Tulis Berita Resmi Redaksi";
+                document.getElementById('edit-article-id').value = "";
+                document.getElementById('admin-title').value = "";
+                document.getElementById('admin-category').value = "Warta NU";
+                document.getElementById('admin-author').value = "Redaksi Media NU Bandar";
+                document.getElementById('admin-image').value = "";
+                document.getElementById('admin-featured').checked = false;
+                document.getElementById('admin-content').value = "";
+            }
+        };
+
+        window.closeAdminEditor = function() {
+            document.getElementById('admin-editor-box').classList.add('hidden');
+        };
+
+        window.saveAdminArticle = async function(event) {
+            event.preventDefault();
+            const editId = document.getElementById('edit-article-id').value;
+            const title = document.getElementById('admin-title').value;
+            const category = document.getElementById('admin-category').value;
+            const author = document.getElementById('admin-author').value;
+            const image = document.getElementById('admin-image').value || "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80";
+            const rawContent = document.getElementById('admin-content').value;
+            const featured = document.getElementById('admin-featured').checked;
+
+            const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            const payload = {
+                title,
+                category,
+                author,
+                image,
+                featured,
+                status: "published",
+                excerpt: rawContent.substring(0, 135) + "...",
+                content: `<p>${rawContent.replace(/\n/g, '</p><p>')}</p>`
+            };
+
+            try {
+                if (db && currentUser) {
+                    if (editId && !editId.startsWith('default-')) {
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', editId), payload);
+                        showToast("Perubahan artikel berhasil disimpan!");
+                    } else {
+                        payload.date = todayStr;
+                        payload.createdAt = Date.now();
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'articles'), payload);
+                        showToast("Berita baru berhasil diterbitkan!");
+                    }
+                } else {
+                    payload.id = editId || 'local-' + Date.now();
+                    payload.date = todayStr;
+                    allArticles.unshift(payload);
+                    renderAllViews();
+                    showToast("Berita tersimpan!");
+                }
+                closeAdminEditor();
+            } catch (e) {
+                console.error(e);
+                showToast("Gagal menyimpan artikel.");
+            }
+        };
+
+        window.approveArticle = async function(id) {
+            if (!db || !currentUser || String(id).startsWith('default-')) return;
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', id), { status: 'published' });
+                showToast("Artikel disetujui dan tayang di halaman utama!");
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        window.deleteArticleAdmin = async function(id) {
+            if (String(id).startsWith('default-')) {
+                showToast("Artikel bawaan sistem tidak dapat dihapus, namun dapat Anda timpa dengan berita baru.");
+                return;
+            }
+            if (!db || !currentUser) return;
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', id));
+                showToast("Artikel berhasil dihapus permanen.");
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        window.saveTickerText = async function() {
+            const text = document.getElementById('admin-ticker-input').value.trim();
+            if (!text) return;
+            try {
+                if (db && currentUser) {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'general'), { tickerText: text }, { merge: true });
+                }
+                document.getElementById('breaking-text').textContent = text;
+                breakingNewsList[0] = text;
+                showToast("Teks Sekilas Info berhasil diperbarui!");
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-articles-table');
+            if (!tbody) return;
+
+            const total = allArticles.length;
+            const pendingCount = allArticles.filter(a => a.status === 'pending').length;
+            const publishedCount = total - pendingCount;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-published').textContent = publishedCount;
+            document.getElementById('stat-pending').textContent = pendingCount;
+
+            tbody.innerHTML = '';
+            allArticles.forEach(item => {
+                const isPending = item.status === 'pending';
+                const isDefault = String(item.id).startsWith('default-');
+                const statusBadge = isPending
+                    ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">Menunggu Moderasi</span>`
+                    : `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">Tayang</span>`;
+
+                const row = `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-3.5 px-4">
+                        <p class="font-bold text-slate-800 line-clamp-1">${item.title}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">${item.author} • ${item.date}</p>
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <span class="text-xs font-semibold text-nu-800 bg-nu-50 px-2.5 py-1 rounded-lg">${item.category}</span>
+                    </td>
+                    <td class="py-3.5 px-4">${statusBadge}</td>
+                    <td class="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+                        ${isPending ? `<button onclick="approveArticle('${item.id}')" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg" title="Setujui & Tayangkan"><i class="fas fa-check"></i> Tayangkan</button>` : ''}
+                        <button onclick="openAdminEditor('${item.id}')" class="px-2.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold rounded-lg" title="Edit Berita"><i class="fas fa-edit"></i></button>
+                        ${!isDefault ? `<button onclick="deleteArticleAdmin('${item.id}')" class="px-2.5 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-semibold rounded-lg" title="Hapus"><i class="fas fa-trash"></i></button>` : ''}
+                    </td>
+                </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Salin Tautan & Toast Notification
+        window.copyArticleLink = function() {
+            const dummyInput = document.createElement('input');
+            dummyInput.value = window.location.href;
+            document.body.appendChild(dummyInput);
+            dummyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummyInput);
+            showToast("Tautan artikel berhasil disalin ke clipboard!");
+        };
+
+        window.showToast = function(message) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        };
+
+        // Jalankan saat halaman dimuat
+        window.onload = function() {
+            initDate();
+            renderAllViews();
+            initCloudSync();
+        };
+    </script>
+</body>
+</html>
